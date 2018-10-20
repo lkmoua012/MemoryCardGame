@@ -10,6 +10,7 @@ class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
     friends,
+    chosen: [],
     score: 0
   };
 
@@ -23,18 +24,26 @@ class App extends Component {
 
   removeFriend = id => {
     // Filter this.state.friends for friends with an id not equal to the id being removed
-
     // const friends = this.state.friends.filter(friend => friend.id !== id);
 
     const friends = this.shuffle(this.state.friends);
 
     // if friends id equals to id already chosen
-    // reset to 0
+    if (this.state.chosen.includes(id) === true) {
+      this.setState({ score: 0});
+      alert("You've already selected this character! Game over.");
+      this.setState({ chosen: [] });
+    }
 
-    // otherwise, add one
+    else {
+    let chosen = this.state.chosen.push(id);
     this.setState(prevState => {
-      return {score: prevState.score +1}
+      return {score: prevState.score +1} 
     });
+
+  }
+    // console debug
+    // console.log(this.state.chosen);
 
     // Set this.state.friends equal to the new friends array
     this.setState({ friends });
