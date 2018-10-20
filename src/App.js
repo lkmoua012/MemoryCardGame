@@ -13,10 +13,20 @@ class App extends Component {
     score: 0
   };
 
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
   removeFriend = id => {
     // Filter this.state.friends for friends with an id not equal to the id being removed
 
-    const friends = this.state.friends.filter(friend => friend.id !== id);
+    // const friends = this.state.friends.filter(friend => friend.id !== id);
+
+    const friends = this.shuffle(this.state.friends);
 
     // if friends id equals to id already chosen
     // reset to 0
