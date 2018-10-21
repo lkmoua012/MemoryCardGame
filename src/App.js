@@ -7,7 +7,7 @@ import ScoreCard from "./components/ScoreCard";
 import "./App.css";
 
 class App extends Component {
-  // Setting this.state.friends to the friends json array
+
   state = {
     friends,
     chosen: [],
@@ -23,38 +23,40 @@ class App extends Component {
 }
 
   removeFriend = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    // const friends = this.state.friends.filter(friend => friend.id !== id);
 
     const friends = this.shuffle(this.state.friends);
 
-    // if friends id equals to id already chosen
+    if (this.state.score === 12) {
+      this.setState({ score: 0});
+      alert("Congratulations! You win!");
+      this.setState({ chosen: [] });
+      return;
+    }
+
     if (this.state.chosen.includes(id) === true) {
       this.setState({ score: 0});
-      alert("You've already selected this character! Game over.");
+      alert("You've already selected this class! Game over.");
       this.setState({ chosen: [] });
     }
 
     else {
     let chosen = this.state.chosen.push(id);
     this.setState(prevState => {
-      return {score: prevState.score +1} 
+      return {score: prevState.score +1}
     });
 
   }
     // console debug
     // console.log(this.state.chosen);
 
-    // Set this.state.friends equal to the new friends array
     this.setState({ friends });
   };
 
-  // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
       <Wrapper>
         <ScoreCard>{this.state.score}</ScoreCard>
-        <Title>Memory Game</Title>
+        <Title>Fate/Stay Night Class Memory Game</Title>
         {this.state.friends.map(friend => (
           <FriendCard
             removeFriend={this.removeFriend}
@@ -62,8 +64,6 @@ class App extends Component {
             key={friend.id}
             name={friend.name}
             image={friend.image}
-            occupation={friend.occupation}
-            location={friend.location}
           />
         ))}
       </Wrapper>
