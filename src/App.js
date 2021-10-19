@@ -26,7 +26,7 @@ class App extends Component {
 
     const friends = this.shuffle(this.state.friends);
 
-    if (this.state.score === 12) {
+    if (this.state.score === 11) {
       this.setState({ score: 0});
       alert("Congratulations! You win!");
       this.setState({ chosen: [] });
